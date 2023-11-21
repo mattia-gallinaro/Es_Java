@@ -35,6 +35,10 @@ public class Chronometer1
         }
     }
 
+    public boolean isTimeReady(){
+        return (start_time != 0) && (stop_time !=0);
+    }
+
     public  void reset(){
         if(stop_time != 0){
             start_time = 0;
