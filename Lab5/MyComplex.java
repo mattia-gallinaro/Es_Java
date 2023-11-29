@@ -41,26 +41,28 @@ public class MyComplex
     //prodotto di due complessi: z = z1*z2 = (x1*x2 -y1*y2) + i*(x1*y2 + x2*y1)
     public MyComplex mult(MyComplex z)
     {
-    return new MyComplex(real * z.getRe() - imm * z.getIm(), real * z.getIm() - z.getRe() * y);
+    return new MyComplex(real * z.getRe() - imm * z.getIm(), real * z.getIm() - z.getRe() * imm);
     }
 
     //Divide questo numero complesso per il numero complesso z
     //divisione fra due complessi: z1/z2 = z1 *1/z2, per z2 != 0
     public MyComplex div(MyComplex z)
-    {return null;  //completare
+    {
+        return mult(z.inv());
     }
           
     //Calcola il coniugato di questo numero complesso
     //coniugato del complesso z:  z^= x - i*y
     public MyComplex conj()
     {
-    return new MyComplex(real , -imm );
+    return new MyComplex(real , - imm);
     }
           
     //Calcola l'inverso rispetto al prodotto di un numero complesso
     //inverso del complesso z: 1/z = x/(|z|*|z|) -i*y/(|z|*|z|), per z != 0
     public MyComplex inv()
-    {return null;  //completare
+    {
+        return new MyComplex(real/(mod() * mod()) , -y/((mod() * mod())));  
     }
 
     //Calcola il modulo di questo numero complesso
@@ -72,13 +74,16 @@ public class MyComplex
            
     //Confronta con tolleranza due numeri complessi.
     public boolean approxEquals(MyComplex z)
-    {return false;  //completare
+    {
+        return Math.abs(real - z.getRe()) <= Epsilon * Math.max(Math.abs(real), Math.abs(z.getRe())) && 
+                Math.abs(imm - z.getIm()) <= Epsilon * Math.max(Math.abs(imm), Math.abs(z.getIm())); 
     }
 
     //Crea una stringa che rappresenta questo numero complesso
     //Formato stringa: parte reale + i*parte immaginaria
     public String toString()
-    {return null;  //completare
+    {
+        return real + "" + imm;
     }
 
 
@@ -86,13 +91,21 @@ public class MyComplex
           
     //Restituisce la parte complessa di un numero complesso
     public double getIm()
-    {return imm;  //completare
+    {
+        return imm;
     }
     //Restituisce la parte reale di un numero complesso
     public double getRe()
-    {return real;  //completare
+    {
+        return real;
     }
     
     private double real;
     private double imm;
+    private final double Epsilon = 1e-14;
+}
+
+
+class MyComplexTester{
+
 }
